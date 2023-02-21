@@ -11,16 +11,21 @@ CORS(app)
 def return_crop():
     if request.content_type == 'application/json':
         npk = request.get_json()
+        N = npk['N']
+        P = npk['P']
+        K = npk['K']
+
     elif request.content_type == 'application/x-www-form-urlencoded':
-        npk = request.form.to_dict()
+        # npk = request.form.to_dict()
+        N = request.form['N']
+        P = request.form['P']
+        K = request.form['K']
     else:
         return jsonify({'error': 'Unsupported Content-Type'}), 400
-        
-    N = npk['N']
-    P = npk['P']
-    K = npk['K']
 
-    crop = Crop_predictor.predict(N, P, K)
+    model = Crop_predictor(N=N,P=P,K=K)
+
+    crop = model.predict()
     crop_dict = {
         'model': 'model',
         'crop': crop,

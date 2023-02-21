@@ -11,9 +11,11 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 warnings.filterwarnings("ignore")
 
 
-class Crop_predictor():
-    def __init__(self):
-        pass
+class Crop_predictor:
+    def __init__(self, N, P, K):
+        self.nitrogen = int(N)
+        self.phosphorus = int(P)
+        self.potassium = (K)
     
     
     def deserialize(self):
@@ -23,9 +25,10 @@ class Crop_predictor():
         # print('model loaded')
         return model
   
-    def predict(self,  N,  P, K):
+    def predict(self):
         model = self.deserialize()
-        return model.predict(np.array([[N, P, K]]))
+        args = np.array([[self.nitrogen, self.phosphorus, self.potassium]])
+        return model.predict(args)
 
 
 
