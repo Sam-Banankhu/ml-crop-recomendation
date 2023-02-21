@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-class npk_predictor():
+class crop_predictor():
   def __init__(self):
     pass
   
