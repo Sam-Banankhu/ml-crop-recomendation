@@ -3,32 +3,29 @@ import pandas as pd
 import numpy as np
 import joblib
 import warnings
-
+# Your code that produces warning messages
+warnings.filterwarnings("ignore")
 # Ignore DeprecationWarning messages
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-# Your code that produces warning messages
-warnings.filterwarnings("ignore")
-
-
-class Crop_predictor:
+class CropPredictor:
     def __init__(self, N, P, K):
         self.nitrogen = int(N)
         self.phosphorus = int(P)
         self.potassium = (K)
     
-    
     def deserialize(self):
-        # de-serialize mlp_nn.pkl file into an object called model using pickle
-        # with open('model_1.pkl', 'rb') as handle:
+        # de-serialize model_1.sav file into an object called model using joblib
         model = joblib.load('model_1.sav')
-        # print('model loaded')
-        return model
+        cols = joblib.load('features_1.sav')
+        return model, cols
   
     def predict(self):
-        model = self.deserialize()
-        args = np.array([[self.nitrogen, self.phosphorus, self.potassium]])
-        return model.predict(args)
+        model, cols = self.deserialize()
+        args = np.array([[int(self.nitrogen), int(self.phosphorus), int(self.potassium)]])
+        df = pd.DataFrame(data = args, columns=cols)
+        # print(df)
+        return model.predict(df)
 
 
 
