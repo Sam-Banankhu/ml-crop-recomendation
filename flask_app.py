@@ -13,11 +13,13 @@ def return_crop():
         N = npk.get('N')
         P = npk.get('P')
         K = npk.get('K')
+        print("json is working")
     elif request.content_type == 'application/x-www-form-urlencoded':
         # print(request.args.get('N'))
         N = request.args.get('N')
         P = request.args.get('P')
         K = request.args.get('K')
+        print("args is working")
     else:
         return jsonify({'error': 'Unsupported Content-Type'}), 400
 
