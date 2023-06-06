@@ -5,6 +5,10 @@ from predictor import CropPredictor
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/", methods = ["POST", "GET"])
+def home():
+    return jsonify({"Message":"Hello world"})
+
 @app.route("/crop", methods=['POST'])
 def return_crop():
     if request.content_type == 'application/json':
